@@ -69,7 +69,7 @@
                     android:layout_toStartOf="@+id/ivMore"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="2 hours ago"
+                    android:text="@{article.publishDate}"
                     android:textColor="@color/color_accent"
                     android:textSize="12sp"
                     app:fontFamily="@font/arima_light" />
@@ -85,14 +85,6 @@
                     app:srcCompat="@drawable/ic_share_black"
                     app:tint="@color/color_accent" />
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="@drawable/img_verticle_divider"
-                android:visibility="invisible" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

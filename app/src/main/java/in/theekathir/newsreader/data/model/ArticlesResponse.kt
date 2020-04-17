@@ -12,7 +12,9 @@ data class ArticlesResponse(
     @Json(name = "TotalRecordCount")
     val totalCount: Int,
     @Json(name = "Articles")
-    val articles: MutableList<Articles>
+    val articles: MutableList<Articles>,
+    @Json(name = "RecentArticles")
+    val recentArticles: MutableList<Articles>
 )
 
 @JsonClass(generateAdapter = true)
@@ -36,6 +38,6 @@ data class Articles(
     @Json(name = "ImageSize")
     val imageSize: String?,
     @Json(name = "PublishDate")
-    val publishDate: String?,
+    var publishDate: String = "",
     var uiType: Int = 1
 )

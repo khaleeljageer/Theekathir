@@ -13,51 +13,51 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.request.CachePolicy
-import coil.size.Scale
 import coil.transform.RoundedCornersTransformation
-import kotlin.properties.Delegates
 
-class NewsListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var newsItems: List<Articles> by Delegates.observable(emptyList()) { _, _, _ ->
-        notifyDataSetChanged()
+class NewsListAdapter(private val newsItems: MutableList<Articles>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    fun addItems(articles: MutableList<Articles>) {
+        for (item in articles) {
+            newsItems.add(item)
+            notifyItemInserted(newsItems.size - 1)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
-            2 -> {
-                val holderPostBinding = DataBindingUtil.inflate<ViewDataBinding>(
-                    LayoutInflater.from(parent.context),
-                    R.layout.layout_expanded_news_item_view,
-                    parent,
-                    false
-                )
-                return ExpandedNewsItemViewHolder(holderPostBinding)
-            }
-            else -> {
-                val holderPostBinding = DataBindingUtil.inflate<ViewDataBinding>(
-                    LayoutInflater.from(parent.context),
-                    R.layout.layout_simple_news_item_view,
-                    parent,
-                    false
-                )
-                return SimpleNewsItemViewHolder(holderPostBinding)
-            }
+        return if (viewType == 1) {
+            val holderPostBinding = DataBindingUtil.inflate<ViewDataBinding>(
+                LayoutInflater.from(parent.context),
+                R.layout.layout_simple_news_item_view,
+                parent,
+                false
+            )
+            SimpleNewsItemViewHolder(holderPostBinding)
+        } else {
+            val holderPostBinding = DataBindingUtil.inflate<ViewDataBinding>(
+                LayoutInflater.from(parent.context),
+                R.layout.layout_expanded_news_item_view,
+                parent,
+                false
+            )
+            ExpandedNewsItemViewHolder(holderPostBinding)
         }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     override fun getItemCount(): Int {
         return if (newsItems.isNullOrEmpty()) 0 else newsItems.size
     }
 
-    private fun getItem(position: Int): Articles {
-        return newsItems[position]
-    }
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ExpandedNewsItemViewHolder) {
-            holder.onBind(getItem(position))
+        if (holder is SimpleNewsItemViewHolder) {
+            holder.onBind(newsItems[holder.adapterPosition])
         } else {
-            (holder as SimpleNewsItemViewHolder).onBind(getItem(position))
+            (holder as ExpandedNewsItemViewHolder).onBind(newsItems[holder.adapterPosition])
         }
     }
 
@@ -89,7 +89,6 @@ class NewsListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .plus(article.imageLocation)
 
             viewDataBinding.ivNewsThumb.load(imageUrl) {
-                scale(Scale.FILL)
                 diskCachePolicy(CachePolicy.ENABLED)
             }
         }
