@@ -30,13 +30,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/ivShare"
+                android:layout_toStartOf="@+id/ivWhatsApp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{article.publishDate}"
                 android:textColor="@color/color_accent"
                 android:textSize="12sp"
                 app:fontFamily="@font/arima_light" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivWhatsApp"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/ivShare"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:hapticFeedbackEnabled="true"
+                android:onClick="@{()->actionListener.onWhatsAppClick(article)}"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_whatsapp_"
+                app:tint="@color/color_accent" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivShare"

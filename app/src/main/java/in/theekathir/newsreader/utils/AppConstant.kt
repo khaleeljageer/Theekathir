@@ -2,9 +2,7 @@ package `in`.theekathir.newsreader.utils
 
 object AppConstant {
     const val MEDIUM_IMAGE_BASE_URL = "http://www.theekkathir.in/Image/GetImage/MEDIUM/"
-    const val LARGE_IMAGE_BASE_URL = "http://www.theekkathir.in/Image/GetImage/EXTRALARGE/"
-    const val HEADER_CACHE_CONTROL = "Cache-Control"
-    const val HEADER_PRAGMA = "Pragma"
+    const val SHARE_BASE_URL = "http://www.theekkathir.in/News/"
 
     val CATEGORIES = arrayOf(
         "சமீபத்திய", "இந்தியா", "உலகம்", "கட்டுரை",

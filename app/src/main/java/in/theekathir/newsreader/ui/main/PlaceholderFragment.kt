@@ -3,8 +3,7 @@ package `in`.theekathir.newsreader.ui.main
 import `in`.theekathir.newsreader.data.model.Articles
 import `in`.theekathir.newsreader.databinding.FragmentNewsTabBinding
 import `in`.theekathir.newsreader.presentation.ListActionListener
-import `in`.theekathir.newsreader.utils.AppConstant
-import `in`.theekathir.newsreader.utils.hasNetwork
+import `in`.theekathir.newsreader.utils.*
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -144,10 +143,26 @@ class PlaceholderFragment : Fragment(), ListActionListener, CoroutineScope {
     }
 
     override fun onItemClick(articles: Articles) {
-        Log.d("Khaleel", "Item Articels : ${articles.title}")
+
     }
 
     override fun onShareClick(articles: Articles) {
-        Log.d("Khaleel", "Share Articels : ${articles.title}")
+        val shareUrl = AppConstant.SHARE_BASE_URL.buildShareUrl(
+            articles.categoryName,
+            articles.subCategoryName,
+            articles.articleLocation
+        )
+        val shareMessage = "${articles.title}\n\n$shareUrl"
+        mContext.shareInOtherApps(shareMessage.appendAppUrl())
+    }
+
+    override fun onWhatsAppClick(articles: Articles) {
+        val shareUrl = AppConstant.SHARE_BASE_URL.buildShareUrl(
+            articles.categoryName,
+            articles.subCategoryName,
+            articles.articleLocation
+        )
+        val shareMessage = "${articles.title}\n\n$shareUrl"
+        mContext.shareInWhatsApp(shareMessage.appendAppUrl())
     }
 }

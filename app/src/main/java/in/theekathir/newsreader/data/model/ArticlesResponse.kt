@@ -24,13 +24,13 @@ data class Articles(
     @Json(name = "Title")
     var title: String,
     @Json(name = "ArticleLocation")
-    val articleLocation: String?,
+    val articleLocation: String,
     @Json(name = "ShortDescription")
     val shortDescription: String?,
     @Json(name = "CategoryName")
     val categoryName: String,
     @Json(name = "SubCategoryName")
-    val subCategoryName: String?,
+    val subCategoryName: String,
     @Json(name = "ImageLocation")
     val imageLocation: String?,
     @Json(name = "ImageRegion")
