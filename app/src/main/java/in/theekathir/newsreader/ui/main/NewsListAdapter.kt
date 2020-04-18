@@ -4,6 +4,7 @@ import `in`.theekathir.newsreader.R
 import `in`.theekathir.newsreader.data.model.Articles
 import `in`.theekathir.newsreader.databinding.LayoutExpandedNewsItemViewBinding
 import `in`.theekathir.newsreader.databinding.LayoutSimpleNewsItemViewBinding
+import `in`.theekathir.newsreader.presentation.ListActionListener
 import `in`.theekathir.newsreader.utils.AppConstant
 import `in`.theekathir.newsreader.utils.toPixel
 import android.view.LayoutInflater
@@ -15,7 +16,10 @@ import coil.api.load
 import coil.request.CachePolicy
 import coil.transform.RoundedCornersTransformation
 
-class NewsListAdapter(private val newsItems: MutableList<Articles>) :
+class NewsListAdapter(
+    private val newsItems: MutableList<Articles>,
+    private val actionListener: ListActionListener
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun addItems(articles: MutableList<Articles>) {
@@ -68,14 +72,18 @@ class NewsListAdapter(private val newsItems: MutableList<Articles>) :
     inner class SimpleNewsItemViewHolder(private val viewDataBinding: ViewDataBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
         fun onBind(article: Articles) {
-            (viewDataBinding as LayoutSimpleNewsItemViewBinding).article = article
-            val imageUrl = AppConstant.MEDIUM_IMAGE_BASE_URL
-                .plus("${article.imageRegion}/")
-                .plus(article.imageLocation)
+            if (viewDataBinding is LayoutSimpleNewsItemViewBinding) {
+                viewDataBinding.actionListener = actionListener
+                viewDataBinding.article = article
+                val imageUrl = AppConstant.MEDIUM_IMAGE_BASE_URL
+                    .plus("${article.imageRegion}/")
+                    .plus(article.imageLocation)
 
-            viewDataBinding.ivNewsThumb.load(imageUrl) {
-                transformations(RoundedCornersTransformation(4.toPixel(itemView.context)))
-                diskCachePolicy(CachePolicy.ENABLED)
+                viewDataBinding.ivNewsThumb.load(imageUrl) {
+                    transformations(RoundedCornersTransformation(4.toPixel(itemView.context)))
+                    diskCachePolicy(CachePolicy.ENABLED)
+                }
+                viewDataBinding.executePendingBindings()
             }
         }
     }
@@ -83,13 +91,17 @@ class NewsListAdapter(private val newsItems: MutableList<Articles>) :
     inner class ExpandedNewsItemViewHolder(private val viewDataBinding: ViewDataBinding) :
         RecyclerView.ViewHolder(viewDataBinding.root) {
         fun onBind(article: Articles) {
-            (viewDataBinding as LayoutExpandedNewsItemViewBinding).article = article
-            val imageUrl = AppConstant.MEDIUM_IMAGE_BASE_URL
-                .plus("${article.imageRegion}/")
-                .plus(article.imageLocation)
+            if (viewDataBinding is LayoutExpandedNewsItemViewBinding) {
+                viewDataBinding.actionListener = actionListener
+                viewDataBinding.article = article
+                val imageUrl = AppConstant.MEDIUM_IMAGE_BASE_URL
+                    .plus("${article.imageRegion}/")
+                    .plus(article.imageLocation)
 
-            viewDataBinding.ivNewsThumb.load(imageUrl) {
-                diskCachePolicy(CachePolicy.ENABLED)
+                viewDataBinding.ivNewsThumb.load(imageUrl) {
+                    diskCachePolicy(CachePolicy.ENABLED)
+                }
+                viewDataBinding.executePendingBindings()
             }
         }
     }

@@ -9,11 +9,20 @@
         <variable
             name="article"
             type="in.theekathir.newsreader.data.model.Articles" />
+
+        <variable
+            name="actionListener"
+            type="in.theekathir.newsreader.presentation.ListActionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:hapticFeedbackEnabled="true"
+        android:onClick="@{()->actionListener.onShareClick(article)}"
         app:cardBackgroundColor="@color/color_primary"
         app:cardCornerRadius="@dimen/global_corner_radius"
         app:cardElevation="2dp"
@@ -28,7 +37,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivNewsThumb"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="210dp"
                 android:scaleType="centerCrop" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -45,38 +54,10 @@
                 android:textSize="14sp"
                 app:fontFamily="@font/arima_bold" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txtPublishDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toStartOf="@+id/ivMore"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@{article.publishDate}"
-                    android:textColor="@color/color_accent"
-                    android:textSize="12sp"
-                    app:fontFamily="@font/arima_light" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivMore"
-                    android:layout_width="35dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:padding="10dp"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_share_black"
-                    app:tint="@color/color_accent" />
-            </RelativeLayout>
+            <include
+                layout="@layout/layout_news_item_bottom_widget"
+                app:actionListener="@{actionListener}"
+                app:article="@{article}" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

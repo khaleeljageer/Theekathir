@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="article"
+            type="in.theekathir.newsreader.data.model.Articles" />
+
+        <variable
+            name="actionListener"
+            type="in.theekathir.newsreader.presentation.ListActionListener" />
+    </data>
+
+    <merge>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtPublishDate"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/ivShare"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{article.publishDate}"
+                android:textColor="@color/color_accent"
+                android:textSize="12sp"
+                app:fontFamily="@font/arima_light" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivShare"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:hapticFeedbackEnabled="true"
+                android:onClick="@{()->actionListener.onShareClick(article)}"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/ic_share_black"
+                app:tint="@color/color_accent" />
+        </RelativeLayout>
+    </merge>
+</layout>

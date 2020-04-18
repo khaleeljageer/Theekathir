@@ -1,6 +1,8 @@
 package `in`.theekathir.newsreader.ui.main
 
+import `in`.theekathir.newsreader.data.model.Articles
 import `in`.theekathir.newsreader.databinding.FragmentNewsTabBinding
+import `in`.theekathir.newsreader.presentation.ListActionListener
 import `in`.theekathir.newsreader.utils.AppConstant
 import `in`.theekathir.newsreader.utils.hasNetwork
 import android.content.Context
@@ -19,14 +21,14 @@ import kotlinx.coroutines.Job
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlin.coroutines.CoroutineContext
 
-class PlaceholderFragment : Fragment(), CoroutineScope {
+class PlaceholderFragment : Fragment(), ListActionListener, CoroutineScope {
 
     private var tabIndex: Int = -1
     private var tabCategory: String = ""
     private lateinit var mContext: Context
     private val articleViewModel: ArticleListViewModel by viewModel()
     private val newsAdapter by lazy {
-        NewsListAdapter(mutableListOf())
+        NewsListAdapter(mutableListOf(), this)
     }
 
     private lateinit var bindView: FragmentNewsTabBinding
@@ -139,5 +141,13 @@ class PlaceholderFragment : Fragment(), CoroutineScope {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+    }
+
+    override fun onItemClick(articles: Articles) {
+        Log.d("Khaleel", "Item Articels : ${articles.title}")
+    }
+
+    override fun onShareClick(articles: Articles) {
+        Log.d("Khaleel", "Share Articels : ${articles.title}")
     }
 }

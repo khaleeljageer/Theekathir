@@ -1,8 +1,6 @@
 package `in`.theekathir.newsreader.ui.main
 
-import `in`.theekathir.newsreader.data.model.ArticlesResponse
-import `in`.theekathir.newsreader.data.model.CustomConfig
-import `in`.theekathir.newsreader.data.model.ErrorModel
+import `in`.theekathir.newsreader.data.model.*
 import `in`.theekathir.newsreader.domain.usecase.GetNewsUseCase
 import `in`.theekathir.newsreader.domain.usecase.base.UseCaseResponse
 import `in`.theekathir.newsreader.presentation.base.BaseViewModel
