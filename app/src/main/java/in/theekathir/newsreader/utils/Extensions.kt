@@ -89,5 +89,5 @@ fun String.buildShareUrl(
     subCategoryName: String,
     articleLocation: String
 ): String {
-    return this.plus(URLEncoder.encode("$categoryName/$subCategoryName/$articleLocation", "UTF-8"))
+    return plus(URLEncoder.encode("$categoryName/$subCategoryName/$articleLocation", "UTF-8"))
 }

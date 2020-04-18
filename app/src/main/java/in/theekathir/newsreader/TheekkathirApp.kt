@@ -14,7 +14,6 @@ import com.orhanobut.hawk.Hawk
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import java.util.*
 
 
 class TheekkathirApp : MultiDexApplication() {
@@ -34,8 +33,6 @@ class TheekkathirApp : MultiDexApplication() {
                 Log.d("Khaleel", message)
             }
         }.build()
-
-        Bitly.initialize(this, BuildConfig.BITLY_TOKEN)
     }
 
     private fun buildDefaultImageLoader(): ImageLoader {

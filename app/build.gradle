@@ -17,11 +17,6 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         buildConfigField "String", "NEWS_HOST_URL", "\"http://magazineallyportalapi.magazineally.com\""
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file('bitly.properties').newDataInputStream())
-        def sdkDir = properties.getProperty('bitly')
-
-        buildConfigField "String", "BITLY_TOKEN", sdkDir
     }
 
     buildTypes {
@@ -77,11 +72,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
     implementation "com.orhanobut:hawk:2.0.1"
-    implementation "com.bitly:bitlysdk:1.0.2"
 }
 
 repositories {
     mavenCentral()
-    jcenter()
     google()
 }
